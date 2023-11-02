@@ -1,0 +1,11 @@
+{
+    "CDS": {
+        "model-file": "cds-model.yml",
+        "prop-file": "cds-model-props.yml",
+        "readme-file": "README.md",
+        "current-version": "1.1.0",
+        "versions": [
+            "1.1.0"
+        ]
+    }
+}
