@@ -1,6 +1,6 @@
 ### The Graph-Based Data Model
 
-Many CRDC data models are graph-based, where nodes are functionally equivalent to the tables of a traditional relational database, and the properties within each node effectively represent what would be columns or fields in the corresponding table, with relationships stored at the level of individual records. This approach allows CRDC to support a large number of different study and data types including cross-sectional studies aimed at answering questions concerning basic cancer biology and the mechanisms by which malignancies develop, and longitudinal clinical trials assessing therapeutic interventions. Accordingly, although no single study is likely to propagate data into every node, let alone every property within every node, the data model has sufficient inherent flexibility to accommodate any given type of cnacer study.
+Many CRDC data models are graph-based, where nodes are functionally equivalent to the tables of a traditional relational database, and the properties within each node effectively represent what would be columns or fields in the corresponding table, with relationships stored at the level of individual records. This approach allows CRDC to support a large number of different study and data types including cross-sectional studies aimed at answering questions concerning basic cancer biology and the mechanisms by which malignancies develop, and longitudinal clinical trials assessing therapeutic interventions. Accordingly, although no single study is likely to propagate data into every node, let alone every property within every node, the data model has sufficient inherent flexibility to accommodate any given type of cancer study.
 
 ### Node Categories
 
@@ -26,7 +26,7 @@ In Table View mode, the Data Model Navigator displays detailed tabular views of 
 
 Each property is assigned one of three requirement levels - Required, Preferred, or Optional.
 
-- **Required** properties are largely self-explanatory, i.e. data destined for a node which contains required properties must include values for all such properties, and values must be compliant with the acceptable values for properties which are both required and enumerated. Controlled vocabularies for such properties typically include terms such as “Not Applicable”, “Not Determined” and “Unknown” to accommodate situations where data values aren’t relevant or weren’t collected, either by design or otherwise. 
+- **Required** properties are largely self-explanatory, i.e. data destined for a node which contains required properties must include values for all such properties, and values must be compliant with the acceptable values for properties which are both required and enumerated. Controlled vocabularies for such properties typically include terms such as “Not Applicable”, “Not Determined” and “Unknown” to accommodate situations where data values aren’t relevant or weren’t collected, either by design or otherwise.
 - **Preferred** properties represent properties for which data values are not required, but which add significant insight and detail, have been populated to a significant degree thus far, and for which data is typically available when requested during study on-boarding.
 - **Optional** properties are precisely that and null values are allowed.
 
