@@ -47,7 +47,6 @@
         "prop-file": "ctdc_model_properties_file.yaml",
         "readme-file": "README.md",
         "loading-file": "",
-        "list-delimiter": "*",
         "semantics": {
             "file-nodes": {
                 "data_file": {
