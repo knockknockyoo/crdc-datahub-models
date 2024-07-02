@@ -41,5 +41,24 @@
         "versions": [
             "1.0.0"
         ]
+    },
+    "CTDC": {
+        "model-file": "ctdc_model_file.yaml",
+        "prop-file": "ctdc_model_properties_file.yaml",
+        "readme-file": "README.md",
+        "loading-file": "",
+        "semantics": {
+            "file-nodes": {
+                "data_file": {
+                    "name-field": "data_file_name",
+                    "size-field": "data_file_size",
+                    "md5-field": "data_file_checksum_value"
+                }
+            }
+        },
+        "current-version": "1.0.0",
+        "versions": [
+            "1.0.0"
+        ]
     }
 }
