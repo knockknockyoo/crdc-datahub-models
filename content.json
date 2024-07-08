@@ -28,6 +28,7 @@
         "readme-file": "Data_Model_Navigator_README.md",
         "loading-file": "ICDC_Data_Loading_Example_Files-TCL01.zip",
         "list-delimiter": "*",
+        "omit-DCF-prefix": true,
         "semantics": {
             "file-nodes": {
                 "file": {
