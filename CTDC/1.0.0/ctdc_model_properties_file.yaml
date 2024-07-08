@@ -1612,6 +1612,7 @@ PropDefinitions:
     Src: FNL
     Type: string
     Req: 'Yes'
+    Key: true
   data_file_location:
     Desc: <The specification of a node (file or directory) in a hierarchical file system where an electronic file is located.> The specific location within the S3 storage bucket at which the file is stored, expressed in terms of a unique url <br>CDE ID = 11556141 (added 05-30-24)
     Term:

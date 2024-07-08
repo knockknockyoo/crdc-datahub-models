@@ -7,6 +7,7 @@
         "semantics": {
             "file-nodes": {
                 "file": {
+                    "id-field": "file_id",
                     "name-field": "file_name",
                     "size-field": "file_size",
                     "md5-field": "md5sum"
@@ -32,6 +33,7 @@
         "semantics": {
             "file-nodes": {
                 "file": {
+                    "id-field": "uuid",
                     "name-field": "file_name",
                     "size-field": "file_size",
                     "md5-field": "md5sum"
@@ -51,6 +53,7 @@
         "semantics": {
             "file-nodes": {
                 "data_file": {
+                    "id-field": "data_file_uuid",
                     "name-field": "data_file_name",
                     "size-field": "data_file_size",
                     "md5-field": "data_file_checksum_value"
