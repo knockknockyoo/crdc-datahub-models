@@ -145,6 +145,12 @@ PropDefinitions:
     Type: string
     Req: 'Yes'
   # principal_investigator
+  pi_id: 
+    Desc: A globally unique identifier via which principle investigator can be differentiated across studies; specifically the value of study_id concatenated with the value of pi_last_name, <br>This property is used as the key via which child records, e.g. cohort records, can be associated with the appropriate principle investigator, and to identify the correct principle investigator records during data updates.
+    Src: Data Onwer(s)
+    Type: string
+    Req: 'Yes'
+    Key: true
   person_first_name: #formerly principal_investigator_first_name
     Desc: <A word or group of words indicating a person's first (personal or given) name; the name that precedes the surname. Synonym = Given Name.> The first or given name of the person responsible for the conduct of the clinical trial or research project. <br>CDE ID = 2179589 
     Term:
@@ -230,7 +236,6 @@ PropDefinitions:
     Src: ICDC
     Type: string
     Req: 'Yes'
-    Key: true
     Tags:
        Labeled: Collection
   image_type_included:
@@ -1292,7 +1297,6 @@ PropDefinitions:
     Src: CMB
     Type: string
     Req: 'Yes'
-    Key: true
   parent_specimen_type: # this refers to the nature of the specimen originally isolated from the participant, and from which various aliquots and/or derivative biospecimens were subseuqently isolated
     Desc: <The kind of material that forms the parent sample as captured in the Ontology for Biobanking (OBIB).> <br>CDE ID = 14986443
     Term:
@@ -1608,6 +1612,7 @@ PropDefinitions:
     Src: FNL
     Type: string
     Req: 'Yes'
+    Key: true
   data_file_location:
     Desc: <The specification of a node (file or directory) in a hierarchical file system where an electronic file is located.> The specific location within the S3 storage bucket at which the file is stored, expressed in terms of a unique url <br>CDE ID = 11556141 
     Term:
