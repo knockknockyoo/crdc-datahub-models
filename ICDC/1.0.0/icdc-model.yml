@@ -601,8 +601,8 @@ Relationships:
         Dst: case
       - Src: cycle
         Dst: case
-      - Src: follow_up
-        Dst: case
+      # - Src: follow_up
+      #   Dst: case
       - Src: sample
         Dst: case
     # to accommodate a Sample being directly associated with a Case, rather than being only indirectly associated with a Case through a Visit, etc.
@@ -622,8 +622,8 @@ Relationships:
   of_study_arm:
     Mul: many_to_many
     Ends:
-      - Src: agent
-        Dst: study_arm
+      # - Src: agent
+      #   Dst: study_arm
       - Src: case
         Dst: study_arm
         Mul: many_to_one
@@ -638,21 +638,21 @@ Relationships:
       - Src: file
         Dst: study
         Mul: many_to_one
-      - Src: image_collection
-        Dst: study
-        Mul: many_to_one
+      # - Src: image_collection
+      #   Dst: study
+      #   Mul: many_to_one
       - Src: publication
         Dst: study
         Mul: many_to_one
     Props: null
-  of_agent:
-    Mul: many_to_one
-    Ends:
-      - Src: agent_administration
-        Dst: agent
-      - Src: adverse_event
-        Dst: agent
-    Props: null
+  # of_agent:
+  #   Mul: many_to_one
+  #   Ends:
+  #     - Src: agent_administration
+  #       Dst: agent
+  #     - Src: adverse_event
+  #       Dst: agent
+  #   Props: null
   had_adverse_event:
     Mul: many_to_one
     Ends:
@@ -678,8 +678,8 @@ Relationships:
   on_visit:
     Mul: many_to_one
     Ends:
-      - Src: agent_administration
-        Dst: visit
+      # - Src: agent_administration
+      #   Dst: visit
       - Src: sample
         Dst: visit
       - Src: physical_exam
@@ -715,18 +715,18 @@ Relationships:
       - Src: file
         Dst: diagnosis
     Props: null
-  went_off_study:
-    Mul: one_to_one
-    Ends:
-      - Src: case
-        Dst: off_study
-    Props: null
-  went_off_treatment:
-    Mul: one_to_one
-    Ends:
-      - Src: case
-        Dst: off_treatment
-    Props: null
+  # went_off_study:
+  #   Mul: one_to_one
+  #   Ends:
+  #     - Src: case
+  #       Dst: off_study
+  #   Props: null
+  # went_off_treatment:
+  #   Mul: one_to_one
+  #   Ends:
+  #     - Src: case
+  #       Dst: off_treatment
+  #   Props: null
   next:
     Mul: one_to_one
     Ends:
