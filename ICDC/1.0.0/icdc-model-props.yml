@@ -1280,7 +1280,7 @@ PropDefinitions:
     Type: TBD
   # principal_investigator props
   pi_id: 
-    Desc: A globally unique identifier via which principle investigator can be differentiated across studies; specifically the value of study_id concatenated with the value of pi_last_name, <br>This property is used as the key via which child records, e.g. cohort records, can be associated with the appropriate principle investigator, and to identify the correct principle investigator records during data updates.
+    Desc: A globally unique identifier via which principle investigator can be differentiated across studies; specifically the value of clinical_study_designation concatenated with the value of pi_last_name, <br>This property is used as the key via which child records, e.g. cohort records, can be associated with the appropriate principle investigator, and to identify the correct principle investigator records during data updates.
     Src: Data Onwer(s)
     Type: string
     Req: 'Yes'
@@ -1525,7 +1525,11 @@ PropDefinitions:
     Src: Data Owner(s)
     Type: string
     Req: 'Yes'
-    Key: true
+  registration_unique_id:
+    Desc: The globally unique ID by which any given registration can be unambiguously identified and displayed across studies/trials; specifically the registration_id, prefixed with the appropriate registration_origin. <br>This property is used as the key to identify the correct records during data updates.
+    Src: Data Owner(s)
+    Type: string
+    Req: 'Yes'
   #is_primary_id:
    #Desc: Indicator as to whether the ID in question was also independently captured as patient_id and therefore used to create case_id; for each study/trial participant subject, one, and only one, registration ID must be flagged as being a primary ID
     #Type:
