@@ -1,6 +1,3 @@
-[submodule "CDS"]
-	path = CDS
-	url = https://github.com/CBIIT/cds-model.git
 [submodule "ICDC"]
 	path = ICDC
 	url = https://github.com/CBIIT/icdc-model-tool.git
