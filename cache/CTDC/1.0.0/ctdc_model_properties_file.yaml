@@ -1975,7 +1975,7 @@ PropDefinitions:
         Version: '1'
     Src: FNL
     Type: string
-    Req: 'No'
+    Req: 'Yes'
     Key: true
     Tags:
       Template: 'No'
