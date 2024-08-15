@@ -71,7 +71,6 @@ jobs:
       - name: Stage all files except submodules
         run: |
           git add --all
-          git reset -- $(git submodule --quiet foreach --recursive 'echo $sm_path')
 
       - name: Check for changes in content.json before committing
         run: |
