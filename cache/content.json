@@ -50,7 +50,7 @@
         "model-file": "ctdc_model_file.yaml",
         "prop-file": "ctdc_model_properties_file.yaml",
         "readme-file": "README.md",
-        "loading-file": "",
+        "loading-file": "CTDC_Example_Files.zip",
         "semantics": {
             "file-nodes": {
                 "data_file": {
