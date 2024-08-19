@@ -69,10 +69,10 @@ jobs:
           git checkout ${{ github.ref_name }} || git checkout -b ${{ github.ref_name }}
       - name: Configure Git
         run: |
-          git config --global user.name "test"
+          git config --global user.name "GitHub Action"
           git config --global user.email "test@nih.gov"
 
-      - name: Stage all files except submodules
+      - name: Stage all files includes submodules
         run: |
           git add --all
 
