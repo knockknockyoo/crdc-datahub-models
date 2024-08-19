@@ -1,9 +1,13 @@
 name: Update Data Model Version
 on:
-  push:
-    branches:
-      - dev
-      - dev2
+  schedule:
+    - cron: "29 * * * *"   # every hour on 29th minute, randomly chose
+#    - cron: "29 4 * * *"   # every day at 04:29 UTC, randomly chose
+
+#  push:
+#    branches:
+#      - dev
+#      - dev2
 
 jobs:
   update-data-model-version:
