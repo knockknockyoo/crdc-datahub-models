@@ -27,8 +27,8 @@ jobs:
         run: |
           content=$(cat cache/content.json)
           echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"])"' | while read key current_version model_file; do
-            # uses a prefix path ex) cds-model, icdc-model
-            model_prefix="${model_file%.yml}"
+            # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
+            model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             model_file_path="$model_path/$model_file"
           
@@ -60,7 +60,7 @@ jobs:
                 echo "$updated_content" > cache/content.json
               fi
             else
-              echo "Model file $model_file_path not found. or model file is not properly defined"
+              echo "Model file $model_file_path not found or model file is not properly defined"
             fi
           done
 
