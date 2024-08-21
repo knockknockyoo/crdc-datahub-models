@@ -21,7 +21,7 @@ jobs:
           submodules: true  # This ensures submodules are also checked out
       - name: Update submodule to the latest commit on master
         run: |
-          git submodule init
+          git submodule update --init
           git submodule update --remote --merge
       - name: Check and create version folders
         run: |
