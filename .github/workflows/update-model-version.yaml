@@ -2,6 +2,7 @@ name: Update Data Model Version
 on:
   schedule:
     - cron: "29 * * * *"   # every hour on 29th minute, randomly chose
+  workflow_dispatch:
 #    - cron: "29 4 * * *"   # every day at 04:29 UTC, randomly chose
 
 #  push:
