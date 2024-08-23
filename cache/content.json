@@ -6,13 +6,11 @@
         "loading-file": "cds-file-examples.zip",
         "semantics": {
             "main-nodes": {
-                "program": "program1",
+                "program": "program",
                 "study": "study",
-                "participant": "subject",
+                "participant": "participant",
                 "sample": "sample",
-                "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "file": "file"
             },
             "file-nodes": {
                 "file": {
@@ -42,13 +40,12 @@
         "omit-DCF-prefix": true,
         "semantics": {
             "main-nodes": {
-                "program": "program1",
+                "program": "program",
                 "study": "study",
-                "participant": "subject",
+                "case": "participant",
                 "sample": "sample",
                 "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "principle_investigator": "principle_investigator"
             },
             "file-nodes": {
                 "file": {
@@ -71,13 +68,12 @@
         "loading-file": "CTDC_Example_Files.zip",
         "semantics": {
             "main-nodes": {
-                "program": "program1",
+                "program": "program",
                 "study": "study",
-                "participant": "subject",
-                "sample": "sample",
-                "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "subject": "participant",
+                "specimen": "sample",
+                "data_file": "file",
+                "principle_investigator": "principle_investigator"
             },
             "file-nodes": {
                 "data_file": {
