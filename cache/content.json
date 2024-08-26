@@ -6,13 +6,11 @@
         "loading-file": "cds-file-examples.zip",
         "semantics": {
             "main-nodes": {
-                "program": "program1",
-                "study": "study",
-                "participant": "subject",
-                "sample": "sample",
-                "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "program": "Program",
+                "study": "Study",
+                "participant": "Participant",
+                "sample": "Sample",
+                "file": "File"
             },
             "file-nodes": {
                 "file": {
@@ -42,13 +40,12 @@
         "omit-DCF-prefix": true,
         "semantics": {
             "main-nodes": {
-                "program": "program1",
-                "study": "study",
-                "participant": "subject",
-                "sample": "sample",
-                "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "program": "Program",
+                "study": "Study",
+                "case": "Participant",
+                "sample": "Sample",
+                "file": "File",
+                "principle_investigator": "Principle Investigator"
             },
             "file-nodes": {
                 "file": {
@@ -71,13 +68,12 @@
         "loading-file": "CTDC_Example_Files.zip",
         "semantics": {
             "main-nodes": {
-                "program": "program1",
-                "study": "study",
-                "participant": "subject",
-                "sample": "sample",
-                "file": "file",
-                "file_node": "file",
-                "PI": "principle_investigator"
+                "program": "Program",
+                "study": "Study",
+                "subject": "Participant",
+                "specimen": "Sample",
+                "data_file": "File",
+                "principle_investigator": "Principle Investigator"
             },
             "file-nodes": {
                 "data_file": {
