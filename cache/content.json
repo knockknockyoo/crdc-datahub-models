@@ -45,7 +45,7 @@
                 "case": "Participant",
                 "sample": "Sample",
                 "file": "File",
-                "principle_investigator": "Principle Investigator"
+                "principal_investigator": "Principal Investigator"
             },
             "file-nodes": {
                 "file": {
@@ -73,7 +73,7 @@
                 "subject": "Participant",
                 "specimen": "Sample",
                 "data_file": "File",
-                "principle_investigator": "Principle Investigator"
+                "principal_investigator": "Principal Investigator"
             },
             "file-nodes": {
                 "data_file": {
