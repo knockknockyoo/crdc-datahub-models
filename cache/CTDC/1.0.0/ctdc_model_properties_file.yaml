@@ -485,6 +485,7 @@ PropDefinitions:
       - American Indian or Alaska Native
       - Black or African American
       - Native Hawaiian or other Pacific Islander
+      - White
       - Not Reported
       - Unknown
     Req: 'Yes'
@@ -544,7 +545,7 @@ PropDefinitions:
       #- Refused to Answer # = Response Declined per CMB?
       - Response Declined # per CMB data values
       - Unknown # per CMB data values
-    Req: 'Yes'
+    Req: Preferred
   height:
     Desc: <The number that describes the vertical distance of an individual.> The
       height of the subject as of enrollment, measured in cm. <br>CDE ID = 2179643
@@ -599,7 +600,7 @@ PropDefinitions:
         Version: '1'
     Src: CMB
     Type: string
-    Req: 'Yes'
+    Req: Preferred
   income:
     Desc: <The amount of earnings made by a family in a year.> <br>CDE ID = 14834966
     Term:
@@ -661,7 +662,7 @@ PropDefinitions:
     Type: string # supposedly enumerated but no permissible values specified
     Req: 'Yes'
   # exposure
-  exposure_id:
+  exposure_record_id:
     Desc: <A unique sequence of characters used to identify a linkage between related
       records.> A unique identifier of each exposure record, used to identify the
       correct exposure records during data updates. The value of this property will
@@ -973,7 +974,7 @@ PropDefinitions:
       - Stage IVA
       - Stage IVB
       - Stage IVC
-    Req: 'Yes'
+    Req: Preferred
   tumor_grade:
     Desc: <A text term to express the degree of abnormality of cancer cells as a measure
       of differentiation and aggressiveness.> <br>CDE ID = 11325685
@@ -1001,7 +1002,7 @@ PropDefinitions:
       - Moderately Differentiated # Value exactly as used by the CMB
       - Poorly Differentiated # Value exactly as used by the CMB
       - Undifferentiated grade # Value exactly as used by the CMB
-    Req: 'Yes'
+    Req: Preferred
   # date_of_diagnosis:
   #   Desc: <The date of the procedure or evaluation used to determine the diagnosis.> <br>CDE ID = 2178801 (added 05-28-24)
   #   Term:
