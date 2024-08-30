@@ -88,5 +88,33 @@
         "versions": [
             "1.0.0"
         ]
+    },
+    "CCDI": {
+        "model-file": "ccdi_model_file.yaml",
+        "prop-file": "ccdi_model_properties_file.yaml",
+        "readme-file": "README.md",
+        "loading-file": "CCDI_Example_Files.zip",
+        "semantics": {
+            "main-nodes": {
+                "program": "Program",
+                "study": "Study",
+                "subject": "Participant",
+                "specimen": "Sample",
+                "data_file": "File",
+                "principal_investigator": "Principal Investigator"
+            },
+            "file-nodes": {
+                "data_file": {
+                    "id-field": "data_file_uuid",
+                    "name-field": "data_file_name",
+                    "size-field": "data_file_size",
+                    "md5-field": "data_file_checksum_value"
+                }
+            }
+        },
+        "current-version": "1.0.0",
+        "versions": [
+            "1.0.0"
+        ]
     }
 }
