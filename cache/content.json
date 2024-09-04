@@ -88,5 +88,67 @@
         "versions": [
             "1.0.0"
         ]
+    },
+    "CCDI": {
+        "model-file": "ccdi-model.yml",
+        "prop-file": "ccdi-model-props.yml",
+        "readme-file": "README.md",
+        "loading-file": "",
+        "semantics": {
+            "main-nodes": {
+                "study": "Study",
+                "participant": "Participant",
+                "sample": "Sample",
+                "study_personnel": "Principal Investigator",
+                "clinical_measure_file": "File",
+                "cytogenomic_file": "File",
+                "methylation_array_file": "File",
+                "pathology_file": "File",
+                "radiology_file": "File",
+                "sequencing_file": "File"
+            },
+            "file-nodes": {
+                "clinical_measure_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                },
+                "cytogenomic_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                },
+                "methylation_array_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                },
+                "pathology_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                },
+                "radiology_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                },
+                "sequencing_file": {
+                    "id-field": "dcf_indexd_guid",
+                    "name-field": "file_name",
+                    "size-field": "file_size",
+                    "md5-field": "md5sum"
+                }
+            }
+        },
+        "current-version": "1.9.1",
+        "versions": [
+            "1.9.1"
+        ]
     }
 }
