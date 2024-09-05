@@ -73,9 +73,11 @@ jobs:
             fi
           done
 
-      - name: Ensure branch is created and checked out
+      - name: Pull latest changes before committing
         run: |
-          git checkout ${{ github.ref_name }} || git checkout -b ${{ github.ref_name }}
+#          git checkout ${{ github.ref_name }} || git checkout -b ${{ github.ref_name }}
+          git fetch origin ${{ github.ref_name }}  # Fetch latest changes from the remote
+          git pull origin ${{ github.ref_name }} --rebase  # Rebase local changes on top of remote changes
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Action"
