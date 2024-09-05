@@ -13,12 +13,9 @@ on:
 jobs:
   update-data-model-version:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        branch-name: [ master ]
     steps:
       - name: Printing the branch currently working on
-        run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
+        run: echo "BRANCH_NAME=${{ github.ref_name }}"
       - name: Check out the branch
         uses: actions/checkout@v3
         with:
@@ -78,7 +75,7 @@ jobs:
 
       - name: Ensure branch is created and checked out
         run: |
-          git checkout ${{ matrix.branch-name }} || git checkout -b ${{ matrix.branch-name }}
+          git checkout ${{ github.ref_name }} || git checkout -b ${{ github.ref_name }}
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Action"
@@ -108,4 +105,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin ${{ github.branch-name }}
+          git push origin ${{ github.ref_name }}
