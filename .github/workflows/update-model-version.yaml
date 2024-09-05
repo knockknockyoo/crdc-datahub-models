@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch-name: [ master, dev, dev2 ]
+        branch-name: [ dev, dev2, qa, qa2 ]
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
