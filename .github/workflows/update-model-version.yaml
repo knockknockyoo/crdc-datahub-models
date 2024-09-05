@@ -13,12 +13,16 @@ on:
 jobs:
   update-data-model-version:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch-name: [ dev, dev2, qa, qa2 ] # matrix.branch-name runs the workflow on each specified branch
     steps:
       - name: Printing the branch currently working on
-        run: echo "BRANCH_NAME=${{ github.ref_name }}"
+        run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
       - name: Check out the branch
         uses: actions/checkout@v3
         with:
+          ref: ${{ matrix.branch-name }}
           submodules: true  # This ensures submodules are also checked out
       - name: Update submodule to the latest commit on master
         run: |
@@ -75,7 +79,7 @@ jobs:
 
       - name: Ensure branch is created and checked out
         run: |
-          git checkout ${{ github.ref_name }} || git checkout -b ${{ github.ref_name }}
+          git checkout ${{ matrix.branch-name }} || git checkout -b ${{ matrix.branch-name }}
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Action"
@@ -105,4 +109,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin ${{ github.ref_name }}
+          git push origin ${{ matrix.branch-name }}
