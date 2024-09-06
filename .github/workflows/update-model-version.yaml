@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch-name: [ dev, dev2, qa, qa2 ] # matrix.branch-name runs the workflow on each specified branch
+        branch-name: [ dev ] # matrix.branch-name runs the workflow on each specified branch
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
