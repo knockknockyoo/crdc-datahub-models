@@ -120,11 +120,7 @@ jobs:
 
       - name: Ensure branch is created and checked out
         run: |
-          if git rev-parse --verify ${{ matrix.branch-name }} >/dev/null 2>&1; then
-            git checkout ${{ matrix.branch-name }}
-          else
-            git checkout -b ${{ matrix.branch-name }}
-          fi
+          git checkout ${{ matrix.branch-name }} || git checkout -b ${{ matrix.branch-name }}
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Action"
