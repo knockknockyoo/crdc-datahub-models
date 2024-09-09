@@ -35,6 +35,7 @@ jobs:
       - name: Fetch all tags in the main repository
         if: matrix.tag_enabled == true
         run: |
+          echo "tag collection started"
           git fetch --tags
       - name: Check if tag_enabled is true and Determine and checkout latest tag for main repository
         if: matrix.tag_enabled == true
