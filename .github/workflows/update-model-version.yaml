@@ -15,7 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch-name: [ dev ] # matrix.branch-name runs the workflow on each specified branch
+        include:
+          - branch-name: dev
+            tag_enabled: true # Enables tag checkout for this branch
+          - branch-name: dev2
+            tag_enabled: false  # Enables tag checkout for this branch
+          - branch-name: qa
+            tag_enabled: false
+          - branch-name: qa2
+            tag_enabled: false
+    #          - branch-name: prod
+    #            tag_enabled: true
+    #          - branch-name: stage
+    #            tag_enabled: true  # Enables tag checkout for this branch
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
@@ -24,11 +36,42 @@ jobs:
         with:
           ref: ${{ matrix.branch-name }}
           submodules: true  # This ensures submodules are also checked out
+      - name: Fetch all tags in the main repository
+        if: matrix.tag_enabled == 'true'
+        run: |
+          git fetch --tags
+      - name: Check if tag_enabled is true and Determine and checkout latest tag for main repository
+        if: matrix.tag_enabled == 'true'
+        run: |
+          latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get latest tag in <major>.<minor>.<patch> format
+          if [ -n "$latest_tag" ]; then
+            echo "Checking out latest tag $latest_tag for main repository"
+            git checkout $latest_tag
+          else
+            echo "No valid tag found for the main repository"
+          fi
+      - name: Rebase latest tag onto the matrix branch
+        run: |
+          git checkout ${{ matrix.branch-name }}   # Switch back to the target branch (dev)
+          if [ "${{ matrix.tag_enabled }}" = "true" ]; then
+            git rebase $latest_tag
+          fi
       - name: Update submodule to the latest commit on master
         run: |
           git submodule update --remote --recursive
           git submodule foreach --recursive '
-            git fetch origin
+            if [ "${{ matrix.tag_enabled }}" = "true" ]; then
+              git fetch --tags
+              latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
+              if [ -n "$latest_tag" ]; then
+                echo "Checking out latest tag $latest_tag for $name"
+                git checkout $latest_tag
+              else
+                echo "No valid tag found for $name"
+              fi
+            else
+              git fetch origin
+            fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
       - name: Check and create version folders
