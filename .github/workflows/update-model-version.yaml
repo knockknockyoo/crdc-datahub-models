@@ -50,6 +50,7 @@ jobs:
         run: |
           git checkout ${{ matrix.branch-name }}   # Switch back to the target branch (dev)
           if [ "${{ matrix.tag_enabled }}" = "true" ]; then
+            echo "run the tag"
             git rebase $latest_tag
           fi
       - name: Update submodule to the latest commit
