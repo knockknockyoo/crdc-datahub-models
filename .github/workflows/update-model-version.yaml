@@ -17,11 +17,11 @@ jobs:
       matrix:
         include:
           - branch-name: dev
-            tag_enabled: true # Enables tag checkout for this branch
+            tag_enabled: false # Enables tag checkout for this branch
           - branch-name: dev2
             tag_enabled: false  # Enables tag checkout for this branch
-#          - branch-name: qa
-#            tag_enabled: false
+          - branch-name: qa
+            tag_enabled: false
           - branch-name: qa2
             tag_enabled: false
     #          - branch-name: prod
