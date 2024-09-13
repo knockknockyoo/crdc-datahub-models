@@ -61,7 +61,6 @@ jobs:
               git fetch --tags
               latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
               if [ -n "$latest_tag" ]; then
-                echo "Checking out latest tag $latest_tag for $name"
                 git checkout $latest_tag
               else
                 echo "No valid tag found for $name"
