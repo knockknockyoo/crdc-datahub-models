@@ -36,6 +36,8 @@ jobs:
         with:
           ref: ${{ matrix.branch-name }}
           submodules: true  # This ensures submodules are also checked out
+          submodules_recursive: true  # Recursively fetches submodules
+          fetch-depth: 0  # Fetch all history
       - name: Fetch all tags in the main repository
         if: matrix.tag_enabled == true
         run: |
