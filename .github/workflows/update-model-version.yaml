@@ -144,6 +144,26 @@ jobs:
             echo "skip_commit=false" >> $GITHUB_ENV
           fi
 
+      - name: Update submodule to the latest commit
+        if: env.skip_commit == 'false'
+        run: |
+          content=$(cat cache/content.json)
+          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"])"' | while read key current_version model_file; do
+            model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
+            submodule_path="$model_prefix"  # Define the submodule folder
+
+            if [ -d "$submodule_path" ]; then
+              echo "Updating submodule in $submodule_path"
+              cd $submodule_path
+              git fetch origin
+              git checkout origin/master  # Checkout the latest commit from the submodule
+              cd -
+            else
+              echo "Submodule folder $submodule_path not found."
+            fi
+          done
+          
+
       - name: Commit changes
         if: env.skip_commit == 'false'
         run: |
