@@ -62,8 +62,10 @@ jobs:
       - name: Update submodule to the latest commit on master
         run: |
           git submodule update --remote --recursive
+          echo "recursive started"
           git submodule foreach --recursive '
             if [ "${{ matrix.tag_enabled }}" = "true" ]; then
+              echo "checking tag"
               git fetch --tags
               latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
               if [ -n "$latest_tag" ]; then
@@ -73,6 +75,7 @@ jobs:
                 echo "No valid tag found for $name"
               fi
             else
+              echo "no checking tag"
               git fetch origin
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
