@@ -5,7 +5,7 @@
 [submodule "cds-model"]
 	path = cds-model
 	url = https://github.com/knockknockyoo/cds-model.git
-	branch = development
+	branch = main
 [submodule "ctdc-model"]
 	path = ctdc-model
 	url = https://github.com/CBIIT/ctdc-model.git
