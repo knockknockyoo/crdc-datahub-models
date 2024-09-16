@@ -57,6 +57,7 @@ jobs:
         run: |
           git submodule update --remote --recursive
           git submodule foreach --recursive '
+            echo "Processing submodule: $name"
             if [ "${{ matrix.tag_enabled }}" = "true" ]; then
               git fetch --tags
               latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
