@@ -140,19 +140,22 @@ jobs:
         run: |
           # Check if submodule references have changed
           if ! git diff --cached --submodule=diff --quiet; then
-           echo "Submodule references have changed."
-           git commit -m "Updated submodule references to the latest commit"
+            echo "Submodule references have changed."
+            git commit -m "Updated submodule references to the latest commit"
+            echo "skip_commit=false" >> $GITHUB_ENV
           # Check for other (non-submodule) changes
           elif ! git diff --cached --quiet HEAD; then
-           echo "Main repository content has changed."
-           git commit -m "Updated the latest model version in the content.json"
+            echo "Main repository content has changed."
+            git commit -m "Updated the latest model version in the content.json"
+            echo "skip_commit=false" >> $GITHUB_ENV
           # Check if both submodule and main repo content changed
           elif ! git diff --cached --submodule=diff --quiet && ! git diff --cached --quiet HEAD; then
-           echo "Both submodule references and main repository content have changed."
-           git commit -m "Updated both submodule references and the latest model version in the content.json"
+            echo "Both submodule references and main repository content have changed."
+            git commit -m "Updated both submodule references and the latest model version in the content.json"
+            echo "skip_commit=false" >> $GITHUB_ENV
           else
-           echo "No changes to commit."
-           echo "skip_commit=true" >> $GITHUB_ENV
+            echo "No changes to commit."
+            echo "skip_commit=true" >> $GITHUB_ENV
           fi
       - name: Push changes
         if: env.skip_commit == 'false'
