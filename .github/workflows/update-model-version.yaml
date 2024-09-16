@@ -63,23 +63,28 @@ jobs:
         run: |
           git submodule update --remote --recursive
           git submodule foreach --recursive '
-            if [ "${{ matrix.tag_enabled }}" = "true" ]; then
-              git fetch --tags
-              latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
-              if [ -n "$latest_tag" ]; then
-                git checkout $latest_tag
-              else
-                echo "No valid tag found for $name"
-              fi
-            else
-              echo "no checking tag"
-              echo "Processing submodule: $name"           
-         
-              branch=$(git config -f .gitmodules submodule.${name}.branch)
-              echo "Fetching submodule branch: $branch"
-              git fetch origin $branch
-            fi
-            git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
+          if [ "${{ matrix.tag_enabled }}" = "true" ]; then
+            git fetch --tags
+            latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
+          if [ -n "$latest_tag" ]; then
+            git checkout $latest_tag
+          else
+            echo "No valid tag found for submodule at path: $sm_path"
+          fi
+          else
+            echo "no checking tag"
+            submodule_name=$(basename $sm_path)  # Extract submodule name from the path
+            echo "Processing submodule: $submodule_name"
+            
+          branch=$(git config -f .gitmodules submodule.${submodule_name}.branch)
+          if [ -z "$branch" ]; then
+          branch="master"  # Default to master if no branch found
+          fi
+          echo "Fetching submodule branch: $branch"
+          git fetch origin $branch
+          git checkout $branch
+          fi
+          git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
       - name: Check and create version folders
         run: |
