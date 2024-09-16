@@ -72,9 +72,7 @@ jobs:
                 echo "No valid tag found for $name"
               fi
             else
-              branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch)
-              echo "Fetching submodule branch: $branch"
-              git fetch origin $branch
+              git fetch origin
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
