@@ -70,6 +70,7 @@ jobs:
               branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch)
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
+              git checkout $branch
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
