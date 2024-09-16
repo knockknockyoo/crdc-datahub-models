@@ -58,7 +58,7 @@ jobs:
           if [ "${{ matrix.tag_enabled }}" = "true" ]; then
             git rebase $latest_tag
           fi
-      - name: Update submodule to the latest commit on master
+      - name: Update submodule to the latest commit
         run: |
           git submodule update --remote --recursive
           git submodule foreach --recursive '
@@ -72,7 +72,9 @@ jobs:
                 echo "No valid tag found for $name"
               fi
             else
-              git fetch origin
+              branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch)
+              echo "Fetching submodule branch: $branch"
+              git fetch origin $branch
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
@@ -134,19 +136,15 @@ jobs:
         run: |
           git add --all
 
-      - name: Check for changes in content.json before committing
+      - name: Check for any changes before committing
         run: |
           if git diff --cached --quiet; then
-            echo "No changes to commit for content.json."
+            echo "No changes to commit"
             echo "skip_commit=true" >> $GITHUB_ENV
           else
+            git commit -m "Detected changes"
             echo "skip_commit=false" >> $GITHUB_ENV
           fi
-
-      - name: Commit changes
-        if: env.skip_commit == 'false'
-        run: |
-          git commit -m "Updated the latest model version in the content.json"
 
       - name: Push changes
         if: env.skip_commit == 'false'
