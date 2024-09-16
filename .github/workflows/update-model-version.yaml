@@ -136,29 +136,30 @@ jobs:
         run: |
           git add --all
 
-      - name: Check for changes before committing
+      - name: Check for changes in submodule references and commit if needed
         run: |
-          # Check if submodule references have changed
-          if ! git diff --cached --submodule=diff --quiet; then
-            echo "Submodule references have changed."
-            git commit -m "Updated submodule references to the latest commit"
-            echo "skip_commit=false" >> $GITHUB_ENV
-          # Check for other (non-submodule) changes
-          elif ! git diff --cached --quiet HEAD; then
-            echo "Main repository content has changed."
-            git commit -m "Updated the latest model version in the content.json"
-            echo "skip_commit=false" >> $GITHUB_ENV
-          # Check if both submodule and main repo content changed
-          elif ! git diff --cached --submodule=diff --quiet && ! git diff --cached --quiet HEAD; then
-            echo "Both submodule references and main repository content have changed."
-            git commit -m "Updated both submodule references and the latest model version in the content.json"
-            echo "skip_commit=false" >> $GITHUB_ENV
+          # Check if submodule references have changed (submodule pointers)
+          if ! git diff --cached --quiet --ignore-submodules=none; then
+            git commit -m "Updated submodule references"
+            echo "submodule_commit=true" >> $GITHUB_ENV
           else
-            echo "No changes to commit."
-            echo "skip_commit=true" >> $GITHUB_ENV
+            echo "No submodule reference changes"
+            echo "submodule_commit=false" >> $GITHUB_ENV
           fi
+
+      - name: Check for other changes in the main repository and commit if needed
+        run: |
+          # Check for any other changes in the repository excluding submodule references
+          if ! git diff --cached --quiet -- ':!.gitmodules'; then
+            git commit -m "Updated main repository content"
+            echo "main_commit=true" >> $GITHUB_ENV
+          else
+            echo "No other content changes"
+            echo "main_commit=false" >> $GITHUB_ENV
+          fi
+
       - name: Push changes
-        if: env.skip_commit == 'false'
+        if: env.submodule_commit == 'true' || env.main_commit == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
