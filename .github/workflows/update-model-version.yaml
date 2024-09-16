@@ -75,7 +75,7 @@ jobs:
               echo "no checking tag"
               submodule_name=$(basename $sm_path)
               echo "Processing submodule1: $submodule_name"           
-              echo "git config -f .gitmodules --list"           
+              git config -f .gitmodules --list       
               branch=$(git config -f .gitmodules submodule.${submodule_name}.branch)
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
