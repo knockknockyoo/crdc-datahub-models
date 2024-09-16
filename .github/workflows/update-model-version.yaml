@@ -74,7 +74,7 @@ jobs:
             else
               echo "no checking tag"
               submodule_name=$(basename $sm_path)
-              echo "Processing submodule: $name"           
+              echo "Processing submodule: ${submodule_name}"           
               branch=$(git config -f .gitmodules submodule.${submodule_name}.branch)
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
