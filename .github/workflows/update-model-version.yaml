@@ -18,12 +18,6 @@ jobs:
         include:
           - branch-name: dev
             tag_enabled: false # Enables tag checkout for this branch
-#          - branch-name: dev2
-#            tag_enabled: false  # Enables tag checkout for this branch
-#          - branch-name: qa
-#            tag_enabled: false
-#          - branch-name: qa2
-#            tag_enabled: false
     #          - branch-name: prod
     #            tag_enabled: true
     #          - branch-name: stage
@@ -56,7 +50,6 @@ jobs:
         run: |
           git checkout ${{ matrix.branch-name }}   # Switch back to the target branch (dev)
           if [ "${{ matrix.tag_enabled }}" = "true" ]; then
-            echo "run the tag"
             git rebase $latest_tag
           fi
       - name: Update submodule to the latest commit on master
@@ -67,15 +60,13 @@ jobs:
               git fetch --tags
               latest_tag=$(git tag -l "[0-9]*.[0-9]*.[0-9]*" | sort -V | tail -n 1)  # Get the latest tag in <major>.<minor>.<patch> format
               if [ -n "$latest_tag" ]; then
+                echo "Checking out latest tag $latest_tag for $name"
                 git checkout $latest_tag
               else
                 echo "No valid tag found for $name"
               fi
             else
-              echo "no checking tag"
-              branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch)
-              echo "Fetching submodule branch: $branch"
-              git fetch origin $branch
+              git fetch origin
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
@@ -145,26 +136,6 @@ jobs:
           else
             echo "skip_commit=false" >> $GITHUB_ENV
           fi
-
-      - name: Update submodule to the latest commit
-        if: env.skip_commit == 'false'
-        run: |
-          content=$(cat cache/content.json)
-          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"])"' | while read key current_version model_file; do
-            model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
-            submodule_path="$model_prefix"  # Define the submodule folder
-
-            if [ -d "$submodule_path" ]; then
-              echo "Updating submodule in $submodule_path"
-              cd $submodule_path
-              git fetch origin
-              git checkout origin/master  # Checkout the latest commit from the submodule
-              cd -
-            else
-              echo "Submodule folder $submodule_path not found."
-            fi
-          done
-          
 
       - name: Commit changes
         if: env.skip_commit == 'false'
