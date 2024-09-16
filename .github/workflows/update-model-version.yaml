@@ -73,7 +73,9 @@ jobs:
               fi
             else
               echo "no checking tag"
-              git fetch origin
+              branch=$(git config -f .gitmodules submodule.$name.branch || echo "default-branch")
+              echo "Fetching submodule branch: $branch"
+              git fetch origin $branch
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
