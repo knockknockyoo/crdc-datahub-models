@@ -74,9 +74,7 @@ jobs:
               fi
             else
               echo "no checking tag"
-              prefix_test=$(echo "${key}-model" | tr 'A-Z' 'a-z')
-              echo "$prefix_test"
-              branch=$(git config -f .gitmodules submodule.$prefix_test.branch || echo "master")
+              branch=$(git config -f .gitmodules submodule.$name.branch || echo "master")
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
             fi
