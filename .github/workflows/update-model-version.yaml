@@ -73,7 +73,7 @@ jobs:
               fi
             else
               echo "no checking tag"
-              branch=$(git config -f .gitmodules submodule.$name.branch || echo "default-branch")
+              branch=$(git config -f .gitmodules submodule.$name.branch || echo "master")
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
             fi
