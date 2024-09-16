@@ -18,12 +18,12 @@ jobs:
         include:
           - branch-name: dev
             tag_enabled: false # Enables tag checkout for this branch
-#          - branch-name: dev2
-#            tag_enabled: false  # Enables tag checkout for this branch
-#          #          - branch-name: qa
-#          #            tag_enabled: false
-#          - branch-name: qa2
-#            tag_enabled: false
+          - branch-name: dev2
+            tag_enabled: false  # Enables tag checkout for this branch
+          - branch-name: qa
+            tag_enabled: false
+          - branch-name: qa2
+            tag_enabled: false
     #          - branch-name: prod
     #            tag_enabled: true
     #          - branch-name: stage
@@ -142,7 +142,7 @@ jobs:
             echo "No changes to commit"
             echo "skip_commit=true" >> $GITHUB_ENV
           else
-            git commit -m "Updated the latest model version in the content.json and the submodule reference"
+            git commit -m "Detected changes"
             echo "skip_commit=false" >> $GITHUB_ENV
           fi
 
