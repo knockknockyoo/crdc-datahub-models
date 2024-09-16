@@ -73,13 +73,9 @@ jobs:
               fi
             else
               echo "no checking tag"
-              echo "Processing submodule: $name"
-              
-              test-branch=$(git symbolic-ref --short HEAD || echo "default-branch")
-              echo "$test-branch"
-          
-          
-              branch=$(git config -f .gitmodules submodule.$name.branch)
+              echo "Processing submodule: $name"           
+         
+              branch=$(git config -f .gitmodules submodule.${name}.branch)
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
             fi
