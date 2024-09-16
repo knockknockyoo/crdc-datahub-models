@@ -62,6 +62,7 @@ jobs:
       - name: Update submodule to the latest commit on master
         run: |
           git submodule update --remote --recursive
+          git config -f .gitmodules --list
           git submodule foreach --recursive '
             if [ "${{ matrix.tag_enabled }}" = "true" ]; then
               git fetch --tags
@@ -75,7 +76,7 @@ jobs:
               echo "no checking tag"
               submodule_name=$(basename $sm_path)
               echo "Processing submodule1: $submodule_name"           
-              git config -f .gitmodules --list       
+                
               branch=$(git config -f .gitmodules submodule.${submodule_name}.branch)
               echo "Fetching submodule branch: $branch"
               git fetch origin $branch
