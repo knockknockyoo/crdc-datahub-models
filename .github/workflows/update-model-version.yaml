@@ -11,7 +11,7 @@ jobs:
       matrix:
         include:
           - branch-name: dev
-            tag_enabled:  false
+            tag_enabled: false
           - branch-name: dev2
             tag_enabled: false
           - branch-name: qa
