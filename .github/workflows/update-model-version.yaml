@@ -20,8 +20,8 @@ jobs:
             tag_enabled: false
           - branch-name: stage
             tag_enabled: true  # Enables tag checkout for this branch
-    #          - branch-name: prod
-    #            tag_enabled: true # Enables tag checkout for this branch
+          - branch-name: prod
+            tag_enabled: true # Enables tag checkout for this branch
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
