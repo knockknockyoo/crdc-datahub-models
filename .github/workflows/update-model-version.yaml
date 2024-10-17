@@ -12,16 +12,16 @@ jobs:
         include:
           - branch-name: dev
             tag_enabled: false
-          - branch-name: dev2
-            tag_enabled: false
-          - branch-name: qa
-            tag_enabled: false
-          - branch-name: qa2
-            tag_enabled: false
-          - branch-name: stage
-            tag_enabled: true  # Enables tag checkout for this branch
-          - branch-name: prod
-            tag_enabled: true # Enables tag checkout for this branch
+#          - branch-name: dev2
+#            tag_enabled: false
+#          - branch-name: qa
+#            tag_enabled: false
+#          - branch-name: qa2
+#            tag_enabled: false
+#          - branch-name: stage
+#            tag_enabled: true  # Enables tag checkout for this branch
+#          - branch-name: prod
+#            tag_enabled: true # Enables tag checkout for this branch
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
@@ -84,6 +84,17 @@ jobs:
             model_file_path="$model_path/$model_file"
           
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
+              # compare model or model property changed without any version update.
+              is_model_file_updated = diff "$model_file_path" "$another_file_path" > /dev/null
+              is_model_property_updated = diff "$model_property_file_path" "$another_file_path" > /dev/null                    
+              if [ "$latest_version" = "$current_version" ] && (! (is_model_file_updated) || ! (is_model_property_updated)); then
+                echo "The files are not the same. Replace the model files in the cache folder without the model version update."
+                cache_model_directory="cache/$key/$current_version"
+                # Copy(overwrite) all existing contents into the new folder   
+                cp -r "$model_path/"* "$new_cache_directory/"
+                echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
+              fi
+              
               latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')                      
               if [ "$latest_version" != "$current_version" ]; then
                 echo "New version is detected"
