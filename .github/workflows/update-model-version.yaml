@@ -86,14 +86,8 @@ jobs:
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
               # compare model or model property changed without any version update.
               model_cache_file="cache/$key/$current_version/$model_file"
-              echo "..... $model_cache_file"
               model_property_cache_file="cache/$key/$current_version/$prop_file"
-          
-              diff "$model_file_path" "$model_cache_file" > /dev/null
-              is_model_file_updated=$?
-              diff "$model_property_file_path" "$model_property_cache_file" > /dev/null
-              is_model_property_updated=$?
-              if [ "$latest_version" = "$current_version" ] && (! ($is_model_file_updated) || ! ($is_model_property_updated)); then
+              if [ "$latest_version" = "$current_version" ] && (! (diff "$model_file_path" "$model_cache_file" > /dev/null) || ! (diff "$model_property_file_path" "$model_property_cache_file" > /dev/null)); then
                 echo "The files are not the same. Replace the model files in the cache folder without the model version update."
                 cache_model_directory="cache/$key/$current_version"
                 # Copy(overwrite) all existing contents into the new folder   
