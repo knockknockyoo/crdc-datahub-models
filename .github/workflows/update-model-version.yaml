@@ -94,19 +94,12 @@ jobs:
               latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')                      
               if [ "$latest_version" = "$current_version" ] ; then
                 echo "version is not changed."
-                echo "model_cache_file $model_cache_file"
-                cat $model_cache_file
-          
-                echo "model_file_path $model_file_path"
-                cat $model_file_path
-          
-          
                 if ! diff "$model_file_path" "$model_cache_file"; then
                   echo "The files are not the same. Replace the model files in the cache folder without the model version update."
                   cache_model_directory="cache/$key/$current_version"
-                  # Copy(overwrite) all existing contents into the new folder   
-                  cp -r "$model_path/"* "$new_cache_directory/"
-                  echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
+                  # Copy(overwrite) all existing contents into the new folder TODO change current directory  
+                  cp -r "$model_path/"* "$current_version/"
+                  echo "Copied contents from $model_path to cache/$key/$current_version."
                 fi
               fi            
               if [ "$latest_version" != "$current_version" ]; then
