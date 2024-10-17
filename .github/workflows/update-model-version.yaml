@@ -98,7 +98,7 @@ jobs:
                   echo "The files are not the same. Replace the model files in the cache folder without the model version update."
                   cache_model_directory="cache/$key/$current_version"
                   # Copy(overwrite) all existing contents into the new folder TODO change current directory  
-                  cp -r "$model_path/"* "$current_version/"
+                  cp -r "$model_path/"* "cache/$key/$current_version/"
                   echo "Copied contents from $model_path to cache/$key/$current_version."
                 fi
               fi            
