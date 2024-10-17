@@ -83,16 +83,11 @@ jobs:
             model_path="$model_prefix/model-desc"
             model_file_path="$model_path/$model_file"
             model_property_file_path="$model_path/$prop_file"
-            echo "model_file..... $model_file"
-            echo "prop_file..... $prop_file"
-          
-          
-          
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
               # compare model or model property changed without any version update.
-              model_cache_file = "cache/$key/$current_version/$model_file"
+              model_cache_file="cache/$key/$current_version/$model_file"
               echo "..... $model_cache_file"
-              model_property_cache_file = "cache/$key/$current_version/$prop_file"
+              model_property_cache_file="cache/$key/$current_version/$prop_file"
           
               diff "$model_file_path" "$model_cache_file" > /dev/null
               is_model_file_updated=$?
