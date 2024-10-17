@@ -1,12 +1,16 @@
 [submodule "icdc-model"]
 	path = icdc-model
 	url = https://github.com/CBIIT/icdc-model-tool.git
-	branch = master
+	branch = CRDCDH-1344
 [submodule "cds-model"]
 	path = cds-model
-	url = https://github.com/knockknockyoo/cds-model.git
+	url = https://github.com/CBIIT/cds-model.git
 	branch = development
 [submodule "ctdc-model"]
 	path = ctdc-model
 	url = https://github.com/CBIIT/ctdc-model.git
-	branch = master
+	branch = develop
+[submodule "ccdi-model"]
+	path = ccdi-model
+	url = https://github.com/CBIIT/ccdi-model.git
+	branch = main
