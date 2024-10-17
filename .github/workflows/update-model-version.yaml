@@ -82,6 +82,7 @@ jobs:
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             model_file_path="$model_path/$model_file"
+            echo "model_file_path $model_file_path."
             model_property_file_path="$model_path/$prop_file"
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
               # compare model or model property changed without any version update.
