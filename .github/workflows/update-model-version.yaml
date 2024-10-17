@@ -77,7 +77,7 @@ jobs:
       - name: Check and create version folders
         run: |
           content=$(cat cache/content.json)
-          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"])"' | while read key current_version model_file prop-file; do
+          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"]) \(.value["prop-file"])"' | while read key current_version model_file prop-file; do
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
