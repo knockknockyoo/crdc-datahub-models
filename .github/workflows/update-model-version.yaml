@@ -91,11 +91,9 @@ jobs:
               # compare model or model property changed without any version update.
               model_cache_file="cache/$key/$current_version/$model_file"
               model_property_cache_file="cache/$key/$current_version/$prop_file"
-          
+              latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')                      
               if [ "$latest_version" = "$current_version" ] ; then
                 echo "version is not changed."
-          
-          
                 echo "model_cache_file $model_cache_file"
                 cat $model_cache_file
           
@@ -110,9 +108,7 @@ jobs:
                   cp -r "$model_path/"* "$new_cache_directory/"
                   echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
                 fi
-              fi
-              
-              latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')                      
+              fi            
               if [ "$latest_version" != "$current_version" ]; then
                 echo "New version is detected"
 
