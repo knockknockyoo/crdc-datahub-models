@@ -77,18 +77,18 @@ jobs:
       - name: Check and create version folders
         run: |
           content=$(cat cache/content.json)
-          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"]) \(.value["prop-file"])"' | while read key current_version model_file prop-file; do
+          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"]) \(.value["prop-file"])"' | while read key current_version model_file prop_file; do
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             model_file_path="$model_path/$model_file"
-            model_property_file_path="$model_path/$prop-file"
+            model_property_file_path="$model_path/$prop_file"
           
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
               # compare model or model property changed without any version update.
               model_cache_file = "cache/$key/$current_version/$model_file"
               echo "..... $model_cache_file"
-              model_property_cache_file = "cache/$key/$current_version/$prop-file"
+              model_property_cache_file = "cache/$key/$current_version/$prop_file"
               is_model_file_updated = diff "$model_file_path" "$model_cache_file" > /dev/null
               is_model_property_updated = diff "$model_property_file_path" "$model_property_cache_file" > /dev/null
               if [ "$latest_version" = "$current_version" ] && (! ($is_model_file_updated) || ! ($is_model_property_updated)); then
