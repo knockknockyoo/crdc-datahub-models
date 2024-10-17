@@ -75,14 +75,26 @@ jobs:
       - name: Check and create version folders
         run: |
           content=$(cat cache/content.json)
-          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"])"' | while read key current_version model_file; do
+          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-file"]) \(.value["prop-file"])"' | while read key current_version model_file prop_file; do
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             model_file_path="$model_path/$model_file"
-          
+            model_property_file_path="$model_path/$prop_file"
             if [ -f "$model_file_path" ] && grep -q '^Version:' "$model_file_path"; then
+              model_cache_file="cache/$key/$current_version/$model_file"
+              model_property_cache_file="cache/$key/$current_version/$prop_file"
               latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')                      
+              # compare model or model property file changed without any version update.
+              if [ "$latest_version" = "$current_version" ] ; then
+                if ! diff "$model_file_path" "$model_cache_file" || ! diff "$model_property_file_path" "$model_property_cache_file"; then
+                  echo "The model or property files are changed. Replace the files in the cache folder without the model version update."
+                  cache_model_directory="cache/$key/$current_version"
+                  # Copy(overwrite) all existing contents into the existing folder
+                  cp -r "$model_path/"* "cache/$key/$current_version/"
+                  echo "Copied contents from $model_path to cache/$key/$current_version."
+                fi
+              fi            
               if [ "$latest_version" != "$current_version" ]; then
                 echo "New version is detected"
 
