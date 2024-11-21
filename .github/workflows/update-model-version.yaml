@@ -93,3 +93,4 @@ jobs:
              echo "Detected changes: $key"
              echo "to_be_updated=${to_be_updated},$key" >> $GITHUB_ENV
             fi
+          done
