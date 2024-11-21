@@ -89,7 +89,7 @@ jobs:
             target_folder="cache/$key/$largest_version_folder/"
             if [ -d "$target_folder" ]; then
               echo "copying files....$target_folder"
-              cp -rv "$model_path/"* "$target_folder"
+              cp -r "$model_path/"* "$target_folder"
               git add "$target_folder" # Stage changes in the target folder      
             fi
           
