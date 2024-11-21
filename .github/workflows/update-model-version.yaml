@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - branch-name: dev
+          - branch-name: master
             tag_enabled: false
     #          - branch-name: dev2
     #            tag_enabled: false
