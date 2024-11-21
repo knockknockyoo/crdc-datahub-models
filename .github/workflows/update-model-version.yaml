@@ -85,12 +85,18 @@ jobs:
             # The path containing files must be a model-desc
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
-            cp -r "$model_path/"* "cache/$key/$largest_version_folder/"
           
-            if git diff --cached --quiet -- "$target_folder"; then
-             echo "No changes to commit for $key"
+            target_folder = "cache/$key/$largest_version_folder/"
+            if [ -d "$target_folder" ]; then
+              cp -r "$model_path/"* "$target_folder"            
+            fi
+          
+            # no folder has been created => never run => run!
+            # latest folder has been changed => needs to be updated => run!           
+            if ! git diff --cached --quiet -- "$target_folder" || [! -d "$target_folder" ]; then
+              echo "Detected changes: $key"
+              echo "to_be_updated=${to_be_updated},$key" >> $GITHUB_ENV
             else
-             echo "Detected changes: $key"
-             echo "to_be_updated=${to_be_updated},$key" >> $GITHUB_ENV
+              echo "No changes to commit for $key"
             fi
           done
