@@ -87,8 +87,14 @@ jobs:
             model_path="$model_prefix/model-desc"
           
             target_folder="cache/$key/$largest_version_folder/"          
-            source_hash=$(find "$model_path" -type f -exec md5sum {} + | md5sum | awk '{ print $1 }')
-            target_hash=$(find "$target_folder" -type f -exec md5sum {} + | md5sum | awk '{ print $1 }')
+            target_hash=""      
+            source_hash=$(find "$model_path" -type f -exec sha256sum {} + | sort | sha256sum | awk '{print $1}')
+            # Compute hash of target folder if it exists
+            if [ -d "$target_folder" ]; then
+              target_hash=$(find "$target_folder" -type f -exec sha256sum {} + | sort | sha256sum | awk '{print $1}')
+            else
+              target_hash=""
+            fi
           
             # no folder has been created => never run => run!
             # latest folder has been changed => needs to be updated => run!
