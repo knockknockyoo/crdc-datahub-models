@@ -79,7 +79,7 @@ jobs:
           content=$(cat cache/content.json)
           echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do          
             # store models in the env              
-            CACHE_DIR="cache/CDS"
+            CACHE_DIR="cache/$key"
             largest_version_folder=$(ls -1 "$CACHE_DIR" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
             echo "Largest semantic version folder: $largest_version_folder"            
             # The path containing files must be a model-desc
