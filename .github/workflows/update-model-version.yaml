@@ -12,16 +12,6 @@ jobs:
         include:
           - branch-name: dev
             tag_enabled: false
-    #          - branch-name: dev2
-    #            tag_enabled: false
-    #          - branch-name: qa
-    #            tag_enabled: false
-    #          - branch-name: qa2
-    #            tag_enabled: false
-    #          - branch-name: stage
-    #            tag_enabled: true  # Enables tag checkout for this branch
-    #          - branch-name: prod
-    #            tag_enabled: true # Enables tag checkout for this branch
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
@@ -47,7 +37,6 @@ jobs:
                else
                 echo "Detected changes: $key"
                 echo "to_be_updated=${to_be_updated},$key" >> $GITHUB_ENV
-          #              git commit -m "Detected changes"
                fi
 #
 #
