@@ -94,7 +94,7 @@ jobs:
           
             # no folder has been created => never run => run!
             # latest folder has been changed => needs to be updated => run!           
-            if ! git diff --cached --quiet -- "$target_folder" || [! -d "$target_folder" ]; then
+            if ! git diff --cached --quiet -- "$target_folder" || [ ! -d "$target_folder" ]; then
               echo "Detected changes: $key"
               echo "to_be_updated=${to_be_updated},$key" >> $GITHUB_ENV
             else
