@@ -86,8 +86,9 @@ jobs:
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
           
-            target_folder = "cache/$key/$largest_version_folder/"
+            target_folder="cache/$key/$largest_version_folder/"
             if [ -d "$target_folder" ]; then
+              echo "copying files...."
               cp -r "$model_path/"* "$target_folder"            
             fi
           
