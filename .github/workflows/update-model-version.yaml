@@ -72,7 +72,7 @@ jobs:
             fi
             git merge --allow-unrelated-histories FETCH_HEAD || echo "No merge needed"
           '
-      - name: Overwrite all files from the submodule
+      - name: Overwrite all files from the model in the submodule
         run: |
           # get the latest version from the cache and overwrite all files
           # pass if the no version in the cache; meaning never run github action
