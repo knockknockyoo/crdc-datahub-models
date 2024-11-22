@@ -115,8 +115,7 @@ jobs:
             
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
-            
-            if [[ "$env.updated_path" == *"$model_path"* ]]; then
+            if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
               echo "The string $model_path is found in 'env_updated_path'."
             fi
                   
