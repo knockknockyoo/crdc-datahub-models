@@ -95,8 +95,9 @@
         }
       }
     },
-    "current-version": "1.0.0",
+    "current-version": "",
     "versions": [
+      "",
       "1.0.0"
     ]
   },
