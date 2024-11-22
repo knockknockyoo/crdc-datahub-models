@@ -77,6 +77,7 @@ jobs:
           # get the latest version from the cache and overwrite all files
           # pass if the no version in the cache; meaning never run github action
           content=$(cat cache/content.json)
+          to_be_updated=""
           echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do          
             # store models in the env              
             CACHE_DIR="cache/$key"
@@ -95,7 +96,6 @@ jobs:
           
             # no folder has been created => never run => run!
             # latest folder has been changed => needs to be updated => run!
-            to_be_updated=""
             if ! git diff --cached --quiet -- "$target_folder" || [ ! -d "$target_folder" ]; then
               echo "Detected changes: $key"
               git diff --cached -- "$target_folder" # Show detailed changes for debugging
@@ -104,5 +104,5 @@ jobs:
               echo "No changes to commit for $key"
               git diff --cached -- "$target_folder" # Show detailed changes for debugging
             fi
-            echo "$to_be_updated"
+          echo "end of action $to_be_updated"
           done
