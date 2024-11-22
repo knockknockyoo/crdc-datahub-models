@@ -124,8 +124,12 @@ jobs:
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
                   echo "test.....$version_file_path"
                   latest_version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
-                  echo "latest_version $latest_version"
-                  break
+                  if [[ -n "$version_line" ]]; then
+                    echo "$$version_file_path found version: $latest_version"
+                    break
+                  else
+                    echo "$version_file_path no version. Continue searching"
+                  fi
                 fi 
               done
             fi
