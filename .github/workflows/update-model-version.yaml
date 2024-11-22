@@ -116,7 +116,7 @@ jobs:
             model_path="$model_prefix/model-desc"
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
               echo "The string $model_path is found in 'env_updated_path'."
-              for model_file in "${model_files[@]}"; do
+              for model_file in "$model_files"; do
                 echo "this is the file name: $model_file in the model_files"
                 version_file_path="$model_path/$model_file"
                 echo "$version_file_path"
