@@ -130,9 +130,10 @@ jobs:
                   fi
                 fi
               done
-              echo "latest_version.... $latest_version"
-              if [[ ! -n "$latest_version" ]]; then
-                echo "$key has no version found"
+              if [[ -n "$latest_version" ]]; then
+                echo "$key has the latest version $latest_version found"
+              else
+                echo "$key has no version"
               fi
             fi
           done
