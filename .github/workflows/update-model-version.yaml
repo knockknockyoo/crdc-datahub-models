@@ -120,15 +120,17 @@ jobs:
               echo "$model_files" | jq -r '.[]' | while read -r model_file; do
                 version_file_path="$model_path/$model_file"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
-                  latest_version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
-                  if [[ -n "$latest_version" ]]; then
-                    echo "$version_file_path found version: $latest_version"
+                  version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
+                  if [[ -n "$version" ]]; then
+                    echo "$version_file_path found version: $version"
+                    latest_version=$version
                     break
                   else
                     echo "$version_file_path has no version"
                   fi
                 fi 
               done
+              echo "latest_version.... $latest_version"
               if [[ ! -n "$latest_version" ]]; then
                 echo "$key has no version found"
               fi
