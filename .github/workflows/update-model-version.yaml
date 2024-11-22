@@ -132,8 +132,8 @@ jobs:
                 fi
               done
               if [[ -n "$for_version" ]]; then
-                echo "$key has the latest version $latest_version found"
-                latest_version=$latest_version
+                echo "$key has the latest version $for_version found"
+                latest_version=$for_version
               else
                 echo "$key has no version"
               fi
