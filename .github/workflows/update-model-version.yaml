@@ -105,4 +105,13 @@ jobs:
               git diff --cached -- "$target_folder" # Show detailed changes for debugging
             fi
           echo "end of action $to_be_updated"
+          echo "updated_path=$to_be_updated" >> $GITHUB_ENV
+          done
+      - name: Check and create version folders
+        run: |
+          content=$(cat cache/content.json)
+          echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-files"]) \(.value["prop-file"])"' | while read key current_version model_files prop_file; do
+            # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
+            echo "updated_path ${{env.updated_path}}"
+          
           done
