@@ -117,10 +117,10 @@ jobs:
             
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
               latest_version=""
-              echo "$model_files" | jq -r '.[]' | while read -r model_file; do
+              for model_file in $(echo "$model_files" | jq -r '.[]'); do
                 version_file_path="$model_path/$model_file"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
-                  version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
+                  version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')
                   if [[ -n "$version" ]]; then
                     echo "$version_file_path found version: $version"
                     latest_version="$version"
@@ -128,7 +128,7 @@ jobs:
                   else
                     echo "$version_file_path has no version"
                   fi
-                fi 
+                fi
               done
               echo "latest_version.... $latest_version"
               if [[ ! -n "$latest_version" ]]; then
