@@ -88,7 +88,7 @@ jobs:
             model_path="$model_prefix/model-desc"
           
             target_folder="cache/$key/$largest_version_folder/"
-            if [ -d "$target_folder" ] && [[ -n "$largest_version_folder" ]]; then
+            if [ -d "$target_folder" ]; then
               echo "copying files.... $target_folder"
               cp -r "$model_path/"* "$target_folder"
               git add "$target_folder" # Stage changes in the target folder      
@@ -96,17 +96,13 @@ jobs:
           
             # no folder has been created => never run => run!
             # latest folder has been changed => needs to be updated => run!
-            if (! git diff --cached --quiet -- "$target_folder" && [[ -n "$largest_version_folder" ]]) || ([ ! -d "$target_folder" ] && [ -d "$model_path" ]); then
+            if ! git diff --cached --quiet -- "$target_folder" || ([ ! -d "$target_folder" ] && [ -d "$model_path" ]); then
               echo "Detected changes: $key"
               git diff --cached -- "$target_folder" # Show detailed changes for debugging
               to_be_updated=${to_be_updated:+$to_be_updated,}$model_path
             else
               echo "No changes to commit for $key"
-              if [[ -n "$largest_version_folder" ]]; then
-                git diff --cached -- "$target_folder" # Show detailed changes for debugging
-              fi
-          
-
+              git diff --cached -- "$target_folder" # Show detailed changes for debugging
             fi
           echo "updated_path=$to_be_updated" >> $GITHUB_ENV
           done
