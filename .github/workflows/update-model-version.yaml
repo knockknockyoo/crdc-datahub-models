@@ -115,8 +115,8 @@ jobs:
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             
+            latest_version=""
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
-              latest_version=""
               for model_file in $(echo "$model_files" | jq -r '.[]'); do
                 version_file_path="$model_path/$model_file"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
@@ -136,4 +136,42 @@ jobs:
                 echo "$key has no version"
               fi
             fi
+          
+            # if the model path exits, files are overwrittin already; contents only updated already without version change            
+            if [ -d "$model_path" ]; then          
+              if [ "$latest_version" = "$current_version" ] && [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
+                echo "Contents updated without any version update"
+              fi
+              if [ "$latest_version" != "$current_version" ]; then
+                echo "New version is detected"
+                # Create a new directory if it doesn't exist
+                new_cache_directory="cache/$key/$latest_version"
+                echo "new_cache_directory: $new_cache_directory"
+                if [ ! -d "$new_cache_directory" ]; then
+                  echo "Version $latest_version does NOT exist in cache/$key/. Creating directory..."
+                  mkdir -p "$new_cache_directory"
+                  echo "Directory $new_cache_directory created."
+          
+                  # Copy all files from the previous version into the new folder
+                  prev_version_dir="cache/$key/$current_version/"
+                  if [ -d "$prev_version_dir" ]; then
+                    cp -r "$prev_version_dir/." "$new_cache_directory/"
+                  fi
+                  # Copy(overwrite) all existing contents into the new folder   
+                  cp -r "$model_path/"* "$new_cache_directory/"
+                  echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
+                else
+                  echo "Directory $new_cache_directory already exists."
+                fi
+          
+                # Update content.json and handle version mismatch
+                updated_content=$(echo "$content" | jq --arg key "$key" --arg model_v "$latest_version" '
+                  .[$key]["versions"] |= (if index($model_v) == null then [$model_v] + . else . end) |
+                  .[$key]["current-version"] = $model_v
+                ')
+                echo "$updated_content" > cache/content.json
+              fi
+            else
+              echo "Model file $model_path not found or model file is not properly defined"
+            fi          
           done
