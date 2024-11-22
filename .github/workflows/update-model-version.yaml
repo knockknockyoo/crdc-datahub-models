@@ -175,3 +175,32 @@ jobs:
               echo "Model file $model_path not found or model file is not properly defined"
             fi          
           done
+      - name: Ensure branch is created and checked out
+        run: |
+          git checkout ${{ matrix.branch-name }} || git checkout -b ${{ matrix.branch-name }}
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "test@nih.gov"
+
+      - name: Stage all files includes submodules
+        run: |
+          git add --all
+
+      - name: Check for any changes before committing
+        run: |
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            echo "skip_commit=true" >> $GITHUB_ENV
+          else
+            git commit -m "Detected changes"
+            echo "skip_commit=false" >> $GITHUB_ENV
+          fi
+
+      - name: Push changes
+        if: env.skip_commit == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin ${{ matrix.branch-name }}
