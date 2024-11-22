@@ -120,7 +120,7 @@ jobs:
                 echo "This is an individual file name: $model_file"
                 version_file_path="$model_path/$model_file"
                 echo "$version_file_path"
-                echo "test.....grep -q '^Version:' "$version_file_path"
+                echo "test.....grep -q '^Version:' $version_file_path"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
                   echo "test.....$version_file_path"
                   latest_version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
