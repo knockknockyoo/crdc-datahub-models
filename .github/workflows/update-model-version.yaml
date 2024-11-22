@@ -102,7 +102,11 @@ jobs:
               to_be_updated=${to_be_updated:+$to_be_updated,}$model_path
             else
               echo "No changes to commit for $key"
-              git diff --cached -- "$target_folder" # Show detailed changes for debugging
+              if [[ -n "$largest_version_folder" ]]
+                git diff --cached -- "$target_folder" # Show detailed changes for debugging
+              fi
+          
+
             fi
           echo "updated_path=$to_be_updated" >> $GITHUB_ENV
           done
