@@ -112,6 +112,11 @@ jobs:
           content=$(cat cache/content.json)
           echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-files"]) \(.value["prop-file"])"' | while read key current_version model_files prop_file; do
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
-            echo "updated_path ${{env.updated_path}}"
+
+            for path in ${env_updated_path//,/ }; do
+              echo "Path: $path"
+
+                    
+          
           
           done
