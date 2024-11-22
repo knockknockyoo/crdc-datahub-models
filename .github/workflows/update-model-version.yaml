@@ -102,7 +102,7 @@ jobs:
               to_be_updated=${to_be_updated:+$to_be_updated,}$model_path
             else
               echo "No changes to commit for $key"
-              if [ -d "$model_path" ]; then
+              if [ -d "$$model_prefix" ]; then
                 git diff --cached -- "$target_folder" # Show detailed changes for debugging              
               fi
             fi
