@@ -118,7 +118,7 @@ jobs:
             
             if [[ "$env.updated_path" == *"$model_path"* ]]; then
               echo "The string $model_path is found in 'env_updated_path'."
-          
+            fi
                   
           
           
