@@ -117,12 +117,10 @@ jobs:
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
               echo "The string $model_path is found in 'env_updated_path'."
               echo "$model_files" | jq -r '.[]' | while read -r model_file; do
-                echo "This is an individual file name: $model_file"
-                echo "this is the file name: $model_file in the model_files"
                 version_file_path="$model_path/$model_file"
                 echo "$version_file_path"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
-                  latest_version=$(grep -i '^Version:' "$model_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')
+                  latest_version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')
                   echo "latest_version $latest_version"
                   break
                 fi 
