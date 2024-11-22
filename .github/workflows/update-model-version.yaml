@@ -112,11 +112,14 @@ jobs:
           content=$(cat cache/content.json)
           echo "$content" | jq -r 'to_entries[] | "\(.key) \(.value["current-version"]) \(.value["model-files"]) \(.value["prop-file"])"' | while read key current_version model_files prop_file; do
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
-
-            for path in ${env_updated_path//,/ }; do
-              echo "Path: $path"
-
-                    
+            
+            model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
+            model_path="$model_prefix/model-desc"
+            
+            if [[ "$env.updated_path" == *"$model_path"* ]]; then
+              echo "The string $model_path is found in 'env_updated_path'."
+          
+                  
           
           
           done
