@@ -114,13 +114,12 @@ jobs:
             # uses a prefix path ex) cds(lowercase) + -model, icdc(lowercase) + -model
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
+            
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
+              latest_version=""
               echo "$model_files" | jq -r '.[]' | while read -r model_file; do
-                echo "This is an individual file name: $model_file"
                 version_file_path="$model_path/$model_file"
-                echo "$version_file_path"
                 if [ -f "$version_file_path" ] && grep -q '^Version:' "$version_file_path"; then
-                  echo "test.....$version_file_path"
                   latest_version=$(grep -i '^Version:' "$version_file_path" | sed 's/[Vv]ersion:[ vV]*//' | tr -cd '0-9.')      
                   if [[ -n "$latest_version" ]]; then
                     echo "$version_file_path found version: $latest_version"
@@ -130,5 +129,8 @@ jobs:
                   fi
                 fi 
               done
+              if [[ ! -n "$latest_version" ]]; then
+                echo "$key has no version found"
+              fi
             fi
           done
