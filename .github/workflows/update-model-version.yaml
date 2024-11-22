@@ -102,7 +102,7 @@ jobs:
               to_be_updated=${to_be_updated:+$to_be_updated,}$model_path
             else
               echo "No changes to commit for $key"
-              if [[ -n "$largest_version_folder" ]]
+              if [[ -n "$largest_version_folder" ]]; then
                 git diff --cached -- "$target_folder" # Show detailed changes for debugging
               fi
           
