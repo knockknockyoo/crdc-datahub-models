@@ -139,7 +139,6 @@ jobs:
               fi
             fi
           
-            echo "test....... $latest_version"
             # if the model path exits, files are overwrittin already; contents only updated already without version change            
             if [ -d "$model_path" ]; then          
               if [ "$latest_version" = "$current_version" ] && [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
