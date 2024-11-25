@@ -22,6 +22,7 @@ jobs:
     #            tag_enabled: true  # Enables tag checkout for this branch
     #          - branch-name: prod
     #            tag_enabled: true # Enables tag checkout for this branch
+    # These models will be skipped from running the action
     env:
       SKIP_MODEL: |
         - Hidden Model
