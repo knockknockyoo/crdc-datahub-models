@@ -154,7 +154,9 @@ jobs:
                 echo "Contents updated without any version update"
               fi
               if [ "$latest_version" != "$current_version" ] && [[ -n "$latest_version" ]]; then
-                echo "New version is detected"
+                echo "New version is detected"          
+                # needs to reset overwritten files
+                git reset "cache/$key/"
                 # Create a new directory if it doesn't exist
                 new_cache_directory="cache/$key/$latest_version"
                 echo "new_cache_directory: $new_cache_directory"
