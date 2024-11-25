@@ -82,8 +82,7 @@ jobs:
           # pass if the no version in the cache; meaning never run github action
           content=$(cat cache/content.json)
           to_be_updated=""
-          echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do          
-            # TODO Hidden Model Test MDF needs to be skipped until further development change
+          echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do
             SKIP_MODELS=$(echo "$SKIP_MODEL" | sed 's/- //g' | tr '\n' ' ')
             if [[ " $SKIP_MODELS " =~ " $key " ]]; then
                 echo "Skipping Model: $key"
