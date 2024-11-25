@@ -2,7 +2,7 @@ Handle: CDS
 Version: v5.3.0
 Nodes:
   program:
-    Desc: "test 5.3.0 program Cancer Data Service refer to a broad framework of goals under which related projects or other research activities are grouped. Example - Clinical Proteomic Tumor Analysis Consortium (CPTAC)"
+    Desc: "test 5.3.0 unchanged version overwrite program Cancer Data Service refer to a broad framework of goals under which related projects or other research activities are grouped. Example - Clinical Proteomic Tumor Analysis Consortium (CPTAC)"
     Tags:
       Category: study
       Assignment: core
