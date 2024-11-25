@@ -22,6 +22,8 @@ jobs:
     #            tag_enabled: true  # Enables tag checkout for this branch
     #          - branch-name: prod
     #            tag_enabled: true # Enables tag checkout for this branch
+    env:
+      SKIP_MODEL: '["Hidden Model", "Test MDF"]'
     steps:
       - name: Printing the branch currently working on
         run: echo "BRANCH_NAME=${{ matrix.branch-name }}"
@@ -80,7 +82,7 @@ jobs:
           to_be_updated=""
           echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do          
             # TODO Hidden Model Test MDF needs to be skipped until further development change
-            if [ "$key" = "Hidden Model" ] || [ "$key" = "Test MDF" ]; then
+            if [[ " ${SKIP_MODEL[@]} " =~ " ${key} " ]]; then
                 echo "Skipping Model: $key"
                 continue
             fi
