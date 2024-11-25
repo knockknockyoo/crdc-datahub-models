@@ -157,6 +157,7 @@ jobs:
                 echo "New version is detected"          
                 # needs to reset overwritten files
                 git reset "cache/$key/"
+                git checkout -- "cache/$key/"
                 # Create a new directory if it doesn't exist
                 new_cache_directory="cache/$key/$latest_version"
                 echo "new_cache_directory: $new_cache_directory"
