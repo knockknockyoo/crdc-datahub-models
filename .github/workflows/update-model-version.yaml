@@ -94,7 +94,7 @@ jobs:
             model_path="$model_prefix/model-desc"
           
             target_folder="cache/$key/$largest_version_folder/"
-            if [ -d "$target_folder" ] && ; then
+            if [ -d "$target_folder" ]; then
               echo "copying files.... $target_folder"
               cp -r "$model_path/"* "$target_folder"
               git add "$target_folder" # Stage changes in the target folder      
