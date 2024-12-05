@@ -192,7 +192,7 @@ jobs:
                   cp -r "$model_path/"* "$new_cache_directory/"
                   
                   if [ -d "$model_navigator_path" ]; then
-                    cp -r "$model_navigator_path/"* "$target_folder"
+                    cp -r "$model_navigator_path/"* "$new_cache_directory/"
                   fi
           
                   echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
