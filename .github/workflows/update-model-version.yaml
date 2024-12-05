@@ -190,12 +190,12 @@ jobs:
                   fi
                   # Copy(overwrite) all existing contents into the new folder   
                   cp -r "$model_path/"* "$new_cache_directory/"
-                  
+                  echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
                   if [ -d "$model_navigator_path" ]; then
                     cp -r "$model_navigator_path/"* "$new_cache_directory/"
+                    echo "Copied contents from $model_navigator_path to cache/$key/$new_cache_directory."
                   fi
-          
-                  echo "Copied contents from $model_path to cache/$key/$new_cache_directory."
+                  
                 else
                   echo "Directory $new_cache_directory already exists."
                 fi
