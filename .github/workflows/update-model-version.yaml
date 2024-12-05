@@ -12,14 +12,14 @@ jobs:
         include:
           - branch-name: master
             tag_enabled: false
-    #          - branch-name: dev2
-    #            tag_enabled: false
-    #          - branch-name: qa
-    #            tag_enabled: false
-    #          - branch-name: qa2
-    #            tag_enabled: false
-    #          - branch-name: stage
-    #            tag_enabled: true  # Enables tag checkout for this branch
+#          - branch-name: dev2
+#            tag_enabled: false
+#          - branch-name: qa
+#            tag_enabled: false
+          #          - branch-name: qa2
+          #            tag_enabled: false
+#          - branch-name: stage
+#            tag_enabled: true  # Enables tag checkout for this branch
     #          - branch-name: prod
     #            tag_enabled: true # Enables tag checkout for this branch
     # These models will be skipped from running the action
@@ -83,14 +83,13 @@ jobs:
           # pass if the no version in the cache; meaning never run github action
           content=$(cat cache/content.json)
           to_be_updated=""
-          echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do
+          echo "$content" | jq -r 'to_entries[] | "\(.key)"' | while read key; do          
             SKIP_MODELS=$(echo "$SKIP_MODEL" | sed 's/- //g' | tr '\n' ' ')
             if [[ " $SKIP_MODELS " =~ " $key " ]]; then
                 echo "Skipping Model: $key"
                 continue
             fi
-            
-            # store models in the env                    
+            # store models in the env              
             CACHE_DIR="cache/$key"
             largest_version_folder=$(ls -1 "$CACHE_DIR" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
             echo "Largest semantic version folder: $largest_version_folder"            
@@ -136,7 +135,7 @@ jobs:
             model_prefix=$(echo "${key}-model" | tr 'A-Z' 'a-z')
             model_path="$model_prefix/model-desc"
             model_navigator_path="$model_prefix/model-navigator-resources"
-            
+          
             latest_version=""
             if [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
               update_version=""
@@ -164,7 +163,7 @@ jobs:
             # if the model path exits, files are overwrittin already; contents only updated already without version change            
             if [ -d "$model_path" ]; then          
               if [ "$latest_version" = "$current_version" ] && [[ "${{env.updated_path}}" == *"$model_path"* ]]; then
-                echo "Contents updated without any version update"
+                echo "Contents updated without any version change"
                 target_folder="cache/$key/$latest_version/"
                 cp -r "$model_path/"* "$target_folder"
           
@@ -174,7 +173,7 @@ jobs:
                 git add "$target_folder" # Stage changes in the target folder
               fi
               if [ "$latest_version" != "$current_version" ] && [[ -n "$latest_version" ]]; then
-                echo "New version is detected"          
+                echo "New version is detected"
                 # Create a new directory if it doesn't exist
                 new_cache_directory="cache/$key/$latest_version"
                 echo "new_cache_directory: $new_cache_directory"
@@ -195,7 +194,7 @@ jobs:
                     cp -r "$model_navigator_path/"* "$new_cache_directory/"
                     echo "Copied contents from $model_navigator_path to cache/$key/$new_cache_directory."
                   fi
-                  
+          
                 else
                   echo "Directory $new_cache_directory already exists."
                 fi
@@ -209,8 +208,9 @@ jobs:
               fi
             else
               echo "Model file $model_path not found or model file is not properly defined"
-            fi          
+            fi
           done
+
       - name: Ensure branch is created and checked out
         run: |
           git checkout ${{ matrix.branch-name }} || git checkout -b ${{ matrix.branch-name }}
