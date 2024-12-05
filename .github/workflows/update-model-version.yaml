@@ -102,13 +102,13 @@ jobs:
             target_folder="cache/$key/$largest_version_folder/"
             if [ -d "$target_folder" ]; then
               if [ -d "$model_path" ]; then
-                echo "copying files.... $target_folder"
+                echo "copying files from $model_path.... $target_folder"
                 cp -r "$model_path/"* "$target_folder"
                 git add "$target_folder" # Stage changes in the target folder                    
               fi
           
               if [ -d "$model_navigator_path" ]; then
-                echo "copying files.... $target_folder"
+                echo "copying files from $model_navigator_path.... $target_folder"
                 cp -r "$model_navigator_path/"* "$target_folder"
                 git add "$target_folder" # Stage changes in the target folder                    
               fi
